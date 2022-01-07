@@ -7,8 +7,6 @@ namespace EnrollmentService.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int StudentId { get; set; }
-        public Student Student { get; set; }
         //relation with enrollment tbl
         public ICollection<Enrollment> Enrollments { get; set; }
     }

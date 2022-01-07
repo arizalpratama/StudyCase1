@@ -33,10 +33,10 @@ namespace EnrollmentService.Data
 
             var courses = new Course[]
             {
-                new Course{Title ="Cloud Fundamentals",Description="Clouds is.."},
-                new Course{Title ="Microservices Architecture",Description="Microservices is.."},
+                new Course{Title ="Cloud Fundamentals",Description="Clouds is .."},
+                new Course{Title ="Microservices Architecture",Description="Microservices is .."},
                 new Course{Title ="Fronted Programming",Description="Frontend is.."},
-                new Course{Title ="Backend RESTful API",Description="Backend Restful API is.."},
+                new Course{Title ="Backend RESTful API",Description="Backend Restful API is .."},
                 new Course{Title ="Entity Framework Core",Description="Entity framework is .."}
             };
 
@@ -49,15 +49,15 @@ namespace EnrollmentService.Data
 
             var enrollments = new Enrollment[]
             {
-                new Enrollment{StudentID=1,CourseID=1},
-                new Enrollment{StudentID=1,CourseID=2},
-                new Enrollment{StudentID=1,CourseID=3},
-                new Enrollment{StudentID=2,CourseID=1},
-                new Enrollment{StudentID=2,CourseID=2},
-                new Enrollment{StudentID=2,CourseID=3},
-                new Enrollment{StudentID=3,CourseID=1},
-                new Enrollment{StudentID=3,CourseID=2},
-                new Enrollment{StudentID=3,CourseID=3}
+                new Enrollment{StudentId=1,CourseId=1},
+                new Enrollment{StudentId=1,CourseId=2},
+                new Enrollment{StudentId=1,CourseId=3},
+                new Enrollment{StudentId=2,CourseId=1},
+                new Enrollment{StudentId=2,CourseId=2},
+                new Enrollment{StudentId=2,CourseId=3},
+                new Enrollment{StudentId=3,CourseId=1},
+                new Enrollment{StudentId=3,CourseId=2},
+                new Enrollment{StudentId=3,CourseId=3}
             };
 
             foreach (var e in enrollments)
