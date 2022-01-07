@@ -34,7 +34,7 @@ namespace EnrollmentService.Data
             var courses = new Course[]
             {
                 new Course{Title ="Cloud Fundamentals",Description="Clouds is .."},
-                new Course{Title ="Microservices Architecture",Description="Microservices is .."},
+                new Course{Title ="Microservices Architecture",Description="Microservices is .."}, 
                 new Course{Title ="Fronted Programming",Description="Frontend is.."},
                 new Course{Title ="Backend RESTful API",Description="Backend Restful API is .."},
                 new Course{Title ="Entity Framework Core",Description="Entity framework is .."}
