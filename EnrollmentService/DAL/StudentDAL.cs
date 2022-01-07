@@ -43,6 +43,7 @@ namespace EnrollmentService.DAL
             return results;
         }
 
+        //Get By Id
         public async Task<Student> GetById(string id)
         {
             var result = await _db.Students.Where
