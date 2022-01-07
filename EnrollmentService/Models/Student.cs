@@ -9,9 +9,9 @@ namespace EnrollmentService.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime EnrollmentDate { get; set; }
-        //one to many with course
+        //one to many with course tbl
         public ICollection<Course> Courses { get; set; }
-        //relation with enrollment
+        //relation with enrollment tbl
         public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace EnrollmentService.Models
         public string Description { get; set; }
         public int StudentId { get; set; }
         public Student Student { get; set; }
-        //relation with enrollment
+        //relation with enrollment tbl
         public ICollection<Enrollment> Enrollments { get; set; }
     }
 }
