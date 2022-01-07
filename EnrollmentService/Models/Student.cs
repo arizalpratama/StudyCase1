@@ -10,6 +10,6 @@ namespace EnrollmentService.Models
         public string LastName { get; set; }
         public DateTime EnrollmentDate { get; set; }
         //relation with enrollment tbl
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; } 
     }
 }
