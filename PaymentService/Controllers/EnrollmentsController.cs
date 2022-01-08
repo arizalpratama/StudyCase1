@@ -16,8 +16,8 @@ namespace PaymentService.Controllers
         [HttpPost]
         public ActionResult TestIndboundConnection()
         {
-            Console.WriteLine("--> Inbound POST command services");
-            return Ok("Inbound test from platforms controller");
+            Console.WriteLine("--> Inbound POST payment services");
+            return Ok("Inbound test from enrollments controller");
         }
     }
 }
