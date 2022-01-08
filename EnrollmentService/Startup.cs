@@ -44,6 +44,7 @@ namespace EnrollmentService
             services.AddScoped<IStudent, StudentDAL>();
             services.AddScoped<ICourse, CourseDAL>();
             services.AddScoped<IEnrollment, EnrollmentDAL>();
+            services.AddScoped<IUser, UserDAL>();
 
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
