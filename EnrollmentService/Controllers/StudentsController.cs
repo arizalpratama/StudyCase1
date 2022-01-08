@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using EnrollmentService.Data;
 using EnrollmentService.Dtos;
-using EnrollmentService.Models;
+using EnrollmentService.Interface;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using EnrollmentService.Interface;
 
 namespace EnrollmentService.Controllers
 {
@@ -27,7 +22,6 @@ namespace EnrollmentService.Controllers
             _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
         }
 
-        //Get All
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDto>>> Get()
         {
@@ -36,7 +30,6 @@ namespace EnrollmentService.Controllers
             return Ok(dtos);
         }
 
-        //Get By Id
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentDto>> Get(int id)
         {
@@ -47,16 +40,14 @@ namespace EnrollmentService.Controllers
             return Ok(_mapper.Map<StudentDto>(result));
         }
 
-        //Insert
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<StudentDto>> Post([FromBody] StudentForCreateDto studentforCreateDto)
         {
             try
             {
-                var student = _mapper.Map<Student>(studentforCreateDto);
+                var student = _mapper.Map<Models.Student>(studentforCreateDto);
                 var result = await _student.Insert(student);
-                var studentReturn = _mapper.Map<StudentDto>(result);
+                var studentReturn = _mapper.Map<Dtos.StudentDto>(result);
                 return Ok(studentReturn);
             }
             catch (Exception ex)
@@ -65,25 +56,22 @@ namespace EnrollmentService.Controllers
             }
         }
 
-        //Update
         [HttpPut("{id}")]
         public async Task<ActionResult<StudentDto>> Put(int id, [FromBody] StudentForCreateDto studentForCreateDto)
         {
             try
             {
-                var student = _mapper.Map<Student>(studentForCreateDto);
+                var student = _mapper.Map<Models.Student>(studentForCreateDto);
                 var result = await _student.Update(id.ToString(), student);
-                var studentdto = _mapper.Map<StudentDto>(result);
+                var studentdto = _mapper.Map<Dtos.StudentDto>(result);
                 return Ok(studentdto);
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
 
-        //Delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -94,7 +82,6 @@ namespace EnrollmentService.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }

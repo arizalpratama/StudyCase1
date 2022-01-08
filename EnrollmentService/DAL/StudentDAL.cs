@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EnrollmentService.Data;
+using EnrollmentService.Interface;
 using EnrollmentService.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnrollmentService.Data;
-using EnrollmentService.Interface;
 
 namespace EnrollmentService.DAL
 {
@@ -16,8 +16,6 @@ namespace EnrollmentService.DAL
         {
             _db = db;
         }
-
-        //Delete
         public async Task Delete(string id)
         {
             var result = await GetById(id);
@@ -34,16 +32,12 @@ namespace EnrollmentService.DAL
             }
         }
 
-        //Get All
         public async Task<IEnumerable<Student>> GetAll()
         {
-            var results = await (from s in _db.Students
-                                 orderby s.FirstName ascending
-                                 select s).ToListAsync();
+            var results = await _db.Students.OrderBy(s => s.FirstName).ToListAsync();
             return results;
         }
 
-        //Get By Id
         public async Task<Student> GetById(string id)
         {
             var result = await _db.Students.Where
@@ -54,7 +48,6 @@ namespace EnrollmentService.DAL
                 throw new Exception("Data tidak ditemukan !");
         }
 
-        //Insert
         public async Task<Student> Insert(Student obj)
         {
             try
@@ -69,7 +62,6 @@ namespace EnrollmentService.DAL
             }
         }
 
-        //Update
         public async Task<Student> Update(string id, Student obj)
         {
             try

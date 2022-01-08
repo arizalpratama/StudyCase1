@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using EnrollmentService.Dtos;
-using EnrollmentService.Models;
 
 namespace EnrollmentService.Profiles
 {
@@ -8,11 +6,11 @@ namespace EnrollmentService.Profiles
     {
         public StudentsProfile()
         {
-            CreateMap<Student, StudentDto>()
+            CreateMap<Models.Student, Dtos.StudentDto>()
                 .ForMember(dest => dest.Name,
                 opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
 
-            CreateMap<Student, StudentForCreateDto>();
+            CreateMap<Dtos.StudentForCreateDto, Models.Student>();
         }
     }
 }

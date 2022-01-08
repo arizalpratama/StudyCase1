@@ -10,7 +10,7 @@ using EnrollmentService.Interface;
 
 namespace EnrollmentService.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -92,7 +92,9 @@ namespace EnrollmentService.Controllers
             return Ok(results);
         }
 
+
         //Authentication
+        [AllowAnonymous]
         [HttpPost("Authentication")]
         public async Task<ActionResult<User>> Authentication(CreateUserDto createUserDto)
         {

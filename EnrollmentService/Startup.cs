@@ -1,8 +1,3 @@
-using EnrollmentService.DAL;
-using EnrollmentService.Data;
-using EnrollmentService.Helpers;
-using EnrollmentService.Interface;
-using EnrollmentService.SyncDataServices.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,12 +11,17 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using EnrollmentService.Data;
+using EnrollmentService.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using EnrollmentService.Interface;
+using EnrollmentService.DAL;
+using EnrollmentService.SyncDataServices.Http;
 
 namespace EnrollmentService
 {
@@ -50,14 +50,14 @@ namespace EnrollmentService
             //HttpClient
             services.AddHttpClient<IPaymentDataClient, HttpPaymentDataClient>();
 
-            //AutoMapper
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddControllers(); 
-
             //Newtonsoft JSON and XML
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddXmlSerializerFormatters();
+
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddControllers(); 
 
             //Identity framework security
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -128,7 +128,7 @@ namespace EnrollmentService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EnrollmentService v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

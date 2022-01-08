@@ -33,11 +33,11 @@ namespace EnrollmentService.Data
 
             var courses = new Course[]
             {
-                new Course{Title ="Cloud Fundamentals",Description="Clouds is .."},
-                new Course{Title ="Microservices Architecture",Description="Microservices is .."}, 
+                new Course{Title ="Cloud Fundamentals",Description="Clouds is desc."},
+                new Course{Title ="Microservices Architecture",Description="Microservices is desc."}, 
                 new Course{Title ="Fronted Programming",Description="Frontend is.."},
-                new Course{Title ="Backend RESTful API",Description="Backend Restful API is .."},
-                new Course{Title ="Entity Framework Core",Description="Entity framework is .."}
+                new Course{Title ="Backend RESTful API",Description="Backend Restful API is desc."},
+                new Course{Title ="Entity Framework Core",Description="Entity framework is desc."}
             };
 
             foreach (var c in courses)
