@@ -1,5 +1,6 @@
 using EnrollmentService.DAL;
 using EnrollmentService.Data;
+using EnrollmentService.Helpers;
 using EnrollmentService.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -54,7 +55,7 @@ namespace EnrollmentService
                 .AddXmlSerializerFormatters();
 
             //Identity Framework Security
-            /*services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireLowercase = true;
@@ -63,6 +64,7 @@ namespace EnrollmentService
                 options.Password.RequireDigit = true;
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //JWT Bearer
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
@@ -83,7 +85,7 @@ namespace EnrollmentService
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
-            });*/
+            });
 
             //Swagger API
             services.AddSwaggerGen(c =>
