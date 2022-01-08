@@ -2,6 +2,7 @@ using EnrollmentService.DAL;
 using EnrollmentService.Data;
 using EnrollmentService.Helpers;
 using EnrollmentService.Interface;
+using EnrollmentService.SyncDataServices.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,9 @@ namespace EnrollmentService
             services.AddScoped<ICourse, CourseDAL>();
             services.AddScoped<IEnrollment, EnrollmentDAL>();
             services.AddScoped<IUser, UserDAL>();
+
+            //HttpClient
+            services.AddHttpClient<IPaymentDataClient, HttpPaymentDataClient>();
 
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
