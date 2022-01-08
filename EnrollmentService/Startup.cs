@@ -1,4 +1,6 @@
+using EnrollmentService.DAL;
 using EnrollmentService.Data;
+using EnrollmentService.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,11 @@ namespace EnrollmentService
             //Connecntion String
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EnrollmentsConn")));
+
+            //Interface & DAL
+            services.AddScoped<IStudent, StudentDAL>();
+            services.AddScoped<ICourse, CourseDAL>();
+            services.AddScoped<IEnrollment, EnrollmentDAL>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
