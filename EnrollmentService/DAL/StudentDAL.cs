@@ -16,6 +16,8 @@ namespace EnrollmentService.DAL
         {
             _db = db;
         }
+
+        //Delete
         public async Task Delete(string id)
         {
             var result = await GetById(id);
@@ -27,17 +29,18 @@ namespace EnrollmentService.DAL
             }
             catch (DbUpdateException dbEx)
             {
-
                 throw new Exception($"Error: {dbEx.Message}");
             }
         }
 
+        //Get All
         public async Task<IEnumerable<Student>> GetAll()
         {
             var results = await _db.Students.OrderBy(s => s.FirstName).ToListAsync();
             return results;
         }
 
+        //Get By Id
         public async Task<Student> GetById(string id)
         {
             var result = await _db.Students.Where
@@ -48,6 +51,7 @@ namespace EnrollmentService.DAL
                 throw new Exception("Data tidak ditemukan !");
         }
 
+        //Insert
         public async Task<Student> Insert(Student obj)
         {
             try
@@ -62,6 +66,7 @@ namespace EnrollmentService.DAL
             }
         }
 
+        //Update
         public async Task<Student> Update(string id, Student obj)
         {
             try

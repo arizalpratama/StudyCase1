@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EnrollmentService.Data;
+using EnrollmentService.Interface;
 using EnrollmentService.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnrollmentService.Data;
-using EnrollmentService.Interface;
 
 namespace EnrollmentService.DAL
 {
@@ -29,7 +29,6 @@ namespace EnrollmentService.DAL
             }
             catch (DbUpdateException dbEx)
             {
-
                 throw new Exception($"Error: {dbEx.Message}");
             }
         }
@@ -37,22 +36,19 @@ namespace EnrollmentService.DAL
         //Get All
         public async Task<IEnumerable<Course>> GetAll()
         {
-            var results = await (from s in _db.Courses 
-                                 orderby s.Title ascending 
-                                 select s).ToListAsync();
+            var results = await _db.Courses.OrderBy(c => c.Title).ToListAsync();
             return results;
         }
 
         //Get By Id
         public async Task<Course> GetById(string id)
         {
-            var results = await (from c in _db.Courses
-                                 where c.Id == Convert.ToInt32(id)
-                                 select c).AsNoTracking().SingleOrDefaultAsync();
+            var results = await(from c in _db.Courses
+                                where c.Id == Convert.ToInt32(id)
+                                select c).AsNoTracking().SingleOrDefaultAsync();
             if (results == null) throw new Exception($"Data {id} tidak temukan !");
 
             return results;
-
         }
 
         //Insert
