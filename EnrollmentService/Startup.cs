@@ -52,6 +52,7 @@ namespace EnrollmentService
 
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddControllers(); 
 
             //Newtonsoft JSON and XML
             services.AddControllers().AddNewtonsoftJson(options =>

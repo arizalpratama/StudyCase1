@@ -1,105 +1,74 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using EnrollmentService.Data;
-using EnrollmentService.Dtos;
-using EnrollmentService.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using EnrollmentService.Data;
+using EnrollmentService.Models;
+using EnrollmentService.SyncDataServices.Http;
 using EnrollmentService.Interface;
+using EnrollmentService.Dtos;
 
 namespace EnrollmentService.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class EnrollmentsController : ControllerBase
     {
-
-        private IEnrollment _enrollment;
+        private readonly IEnrollment _repository;
         private IMapper _mapper;
+        private readonly IPaymentDataClient _paymentDataClient;
 
-        public EnrollmentsController(IEnrollment enrollment, IMapper mapper)
+        public EnrollmentsController(IEnrollment repository,
+        IMapper mapper, IPaymentDataClient paymentDataClient)
         {
-            _enrollment = enrollment ?? throw new ArgumentNullException(nameof(enrollment));
-            _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
+            _repository = repository;
+            _mapper = mapper;
+            _paymentDataClient = paymentDataClient;
         }
 
-
-        //GetAll
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EnrollmentDto>>> Get()
-
+        public ActionResult<IEnumerable<EnrollmentDto>> GetEnrollments()
         {
-            var enrollments = await _enrollment.GetAll();
-            var dtos = _mapper.Map<IEnumerable<EnrollmentDto>>(enrollments);
-            return Ok(dtos);
-
+            Console.WriteLine("--> Getting Platforms .....");
+            var enrollmentItem = _repository.GetAllEnrollments();
+            return Ok(_mapper.Map<IEnumerable<EnrollmentDto>>(enrollmentItem));
         }
 
-        //Get By Id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EnrollmentDto>> Get(int id)
+        [HttpGet("{id}", Name = "GetEnrollmentById")]
+        public ActionResult<EnrollmentDto> GetEnrollmentById(int id)
         {
-            var result = await _enrollment.GetById(id.ToString());
-            if (result == null)
-                return NotFound();
-
-
-            return Ok(_mapper.Map<EnrollmentDto>(result));
+            var enrollmentItem = _repository.GetEnrollmentById(id);
+            if (enrollmentItem != null)
+            {
+                return Ok(_mapper.Map<EnrollmentDto>(enrollmentItem));
+            }
+            return NotFound();
         }
 
-        //Insert
         [HttpPost]
-        public async Task<ActionResult<EnrollmentDto>> Post([FromBody] EnrollmentForCreateDto enrollmentforCreateDto)
+        public async Task<ActionResult<EnrollmentDto>> CreateEnrollment(EnrollmentForCreateDto enrollmentCreateDto)
         {
+            var enrollmentModel = _mapper.Map<Enrollment>(enrollmentCreateDto);
+            _repository.CreateEnrollment(enrollmentModel);
+            _repository.SaveChanges();
+
+            var enrollmentDto = _mapper.Map<EnrollmentDto>(enrollmentModel);
+
+
+            //send sync
             try
             {
-                var enrollment = _mapper.Map<Enrollment>(enrollmentforCreateDto);
-                var result = await _enrollment.Insert(enrollment);
-                var enrollmentReturn = _mapper.Map<EnrollmentDto>(result);
-                return Ok(enrollmentReturn);
+                await _paymentDataClient.SendEnrollmentToPayment(enrollmentDto);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                Console.WriteLine($"--> Could not send synchronously: {ex.Message}");
             }
+
+            return CreatedAtRoute(nameof(GetEnrollmentById),
+            new { Id = enrollmentDto.EnrollmentId }, enrollmentDto);
         }
-
-        //Update
-        [HttpPut("{id}")]
-        public async Task<ActionResult<EnrollmentDto>> Put(int id, [FromBody] EnrollmentForCreateDto enrollmentForCreateDto)
-        {
-            try
-            {
-                var enrollment = _mapper.Map<Enrollment>(enrollmentForCreateDto);
-                var result = await _enrollment.Update(id.ToString(), enrollment);
-                var enrollmentdto = _mapper.Map<EnrollmentDto>(result);
-                return Ok(enrollmentdto);
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-        }
-
-        //Delete
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-                await _enrollment.Delete(id.ToString());
-                return Ok($"Data course {id} berhasil di delete");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
     }
 }
