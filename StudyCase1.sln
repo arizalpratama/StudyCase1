@@ -5,7 +5,15 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnrollmentService", "EnrollmentService\EnrollmentService.csproj", "{D0DB1E6B-E547-4F94-82D1-969E78BC1E76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentService\PaymentService.csproj", "{C8953EBC-15AB-4F35-A86A-C7A2F3C96435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService", "PaymentService\PaymentService.csproj", "{C8953EBC-15AB-4F35-A86A-C7A2F3C96435}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{2EB767B1-7FDC-4E5C-BB8D-D6473568C1D4}"
+	ProjectSection(SolutionItems) = preProject
+		enrollments-depl.yaml = enrollments-depl.yaml
+		ingress-srv.yaml = ingress-srv.yaml
+		mssql-plat-depl.yaml = mssql-plat-depl.yaml
+		payments-depl.yaml = payments-depl.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

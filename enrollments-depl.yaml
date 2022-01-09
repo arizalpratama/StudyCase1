@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enrollments-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: enrollmentservice
+  template:
+    metadata:
+      labels:
+        app: enrollmentservice
+    spec:
+      containers:
+      - name: enrollmentservice
+        image: arizalpratama01/enrollmentservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: enrollments-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: enrollmentservice
+  ports:
+  - name: enrollmentservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
