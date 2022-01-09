@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnrollmentService", "Enroll
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService", "PaymentService\PaymentService.csproj", "{C8953EBC-15AB-4F35-A86A-C7A2F3C96435}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{2EB767B1-7FDC-4E5C-BB8D-D6473568C1D4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{AE16F124-F23D-4050-9174-916CBFA53CF2}"
 	ProjectSection(SolutionItems) = preProject
 		enrollments-depl.yaml = enrollments-depl.yaml
 		ingress-srv.yaml = ingress-srv.yaml
