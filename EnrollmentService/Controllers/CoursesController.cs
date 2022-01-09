@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EnrollmentService.Dtos;
 using EnrollmentService.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get All
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDto>>> Get()
         {
@@ -30,6 +32,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get By Id
+        [Authorize(Roles = "admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> Get(int id)
         {
@@ -42,6 +45,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Insert
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<CourseDto>> Post([FromBody] CourseForCreateDto courseforCreateDto)
         {
@@ -59,6 +63,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Update
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<CourseDto>> Put(int id, [FromBody] CourseForCreateDto courseForCreateDto)
         {
@@ -77,6 +82,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Delete
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -2,6 +2,7 @@
 using EnrollmentService.Dtos;
 using EnrollmentService.Interface;
 using EnrollmentService.SyncDataServices.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get All
+        [Authorize(Roles = "admin,student")]
         [HttpGet]
         public ActionResult<IEnumerable<EnrollmentDto>> GetEnrollments()
         {
@@ -35,6 +37,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get By Id
+        [Authorize(Roles = "admin,student")]
         [HttpGet("{id}", Name = "GetEnrollmentById")]
         public ActionResult<EnrollmentDto> GetEnrollmentById(int id)
         {
@@ -47,6 +50,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Create
+        [Authorize(Roles = "admin,student")]
         [HttpPost]
         public async Task<ActionResult<EnrollmentDto>> CreateEnrollment(EnrollmentForCreateDto enrollmentForCreateDto)
         {

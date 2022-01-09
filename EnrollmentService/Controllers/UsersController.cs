@@ -11,8 +11,8 @@ using EnrollmentService.Interface;
 namespace EnrollmentService.Controllers
 {
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
 
@@ -39,6 +39,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get All
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult<IEnumerable<UserDto>> GetAll()
         {
@@ -46,6 +47,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Add Role
+        [Authorize(Roles = "admin")]
         [HttpPost("Role/{roleName}")]
         public async Task<ActionResult> AddRole(string roleName)
         {
@@ -62,6 +64,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get Role
+        [Authorize(Roles = "admin")]
         [HttpGet("Role")]
         public ActionResult<IEnumerable<CreateRoleDto>> GetAllRole()
         {
@@ -69,6 +72,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Add User To Role
+        [Authorize(Roles = "admin")]
         [HttpPost("UserInRole")]
         public async Task<ActionResult> AddUserToRole(string username, string role)
         {
@@ -85,6 +89,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get Roles From User 
+        [Authorize(Roles = "admin")]
         [HttpGet("RolesByUser/{username}")]
         public async Task<ActionResult<List<string>>> GetRolesByUser(string username)
         {
