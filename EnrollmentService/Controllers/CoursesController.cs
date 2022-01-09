@@ -20,6 +20,7 @@ namespace EnrollmentService.Controllers
             _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
         }
 
+        //Get All
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CourseDto>>> Get()
         {
@@ -28,6 +29,7 @@ namespace EnrollmentService.Controllers
             return Ok(dtos);
         }
 
+        //Get By Id
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> Get(int id)
         {
@@ -39,6 +41,7 @@ namespace EnrollmentService.Controllers
             return Ok(_mapper.Map<CourseDto>(result));
         }
 
+        //Insert
         [HttpPost]
         public async Task<ActionResult<CourseDto>> Post([FromBody] CourseForCreateDto courseforCreateDto)
         {
@@ -55,6 +58,7 @@ namespace EnrollmentService.Controllers
             }
         }
 
+        //Update
         [HttpPut("{id}")]
         public async Task<ActionResult<CourseDto>> Put(int id, [FromBody] CourseForCreateDto courseForCreateDto)
         {
@@ -72,6 +76,7 @@ namespace EnrollmentService.Controllers
             }
         }
 
+        //Delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using EnrollmentService.Data;
-using EnrollmentService.Models;
-using EnrollmentService.SyncDataServices.Http;
-using EnrollmentService.Interface;
+﻿using AutoMapper;
 using EnrollmentService.Dtos;
+using EnrollmentService.Interface;
+using EnrollmentService.SyncDataServices.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EnrollmentService.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class EnrollmentsController : ControllerBase
     {
         private readonly IEnrollment _repository;
@@ -28,14 +25,16 @@ namespace EnrollmentService.Controllers
             _paymentDataClient = paymentDataClient;
         }
 
+        //Get All
         [HttpGet]
         public ActionResult<IEnumerable<EnrollmentDto>> GetEnrollments()
         {
-            Console.WriteLine("--> Getting Platforms .....");
+            Console.WriteLine("--> Getting Enrollments .....");
             var enrollmentItem = _repository.GetAllEnrollments();
             return Ok(_mapper.Map<IEnumerable<EnrollmentDto>>(enrollmentItem));
         }
 
+        //Get By Id
         [HttpGet("{id}", Name = "GetEnrollmentById")]
         public ActionResult<EnrollmentDto> GetEnrollmentById(int id)
         {
@@ -47,17 +46,17 @@ namespace EnrollmentService.Controllers
             return NotFound();
         }
 
+        //Create
         [HttpPost]
-        public async Task<ActionResult<EnrollmentDto>> CreateEnrollment(EnrollmentForCreateDto enrollmentCreateDto)
+        public async Task<ActionResult<EnrollmentDto>> CreateEnrollment(EnrollmentForCreateDto enrollmentForCreateDto)
         {
-            var enrollmentModel = _mapper.Map<Enrollment>(enrollmentCreateDto);
+            var enrollmentModel = _mapper.Map<Models.Enrollment>(enrollmentForCreateDto);
             _repository.CreateEnrollment(enrollmentModel);
             _repository.SaveChanges();
 
             var enrollmentDto = _mapper.Map<EnrollmentDto>(enrollmentModel);
 
-
-            //send sync
+            //Send with syncronhus communication
             try
             {
                 await _paymentDataClient.SendEnrollmentToPayment(enrollmentDto);
@@ -70,5 +69,7 @@ namespace EnrollmentService.Controllers
             return CreatedAtRoute(nameof(GetEnrollmentById),
             new { Id = enrollmentDto.EnrollmentId }, enrollmentDto);
         }
+
+
     }
 }

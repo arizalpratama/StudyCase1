@@ -20,20 +20,21 @@ namespace EnrollmentService.SyncDataServices.Http
             _httpClient = httpClient;
             _configuration = configuration;
         }
-        public async Task SendEnrollmentToPayment(EnrollmentDto enroll)
+
+        public async Task SendEnrollmentToPayment(EnrollmentDto enrol)
         {
             var httpContent = new StringContent(
-                JsonSerializer.Serialize(enroll),
+                JsonSerializer.Serialize(enrol),
                 Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(_configuration["PaymentService"],
                 httpContent);
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("--> Sync POST to PaymentService was OK !");
+                Console.WriteLine("--> Sync POST to CommandService was OK !");
             }
             else
             {
-                Console.WriteLine("--> Sync POST to PaymentService failed");
+                Console.WriteLine("--> Sync POST to CommandService failed");
             }
         }
     }

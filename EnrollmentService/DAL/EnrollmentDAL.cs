@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EnrollmentService.Data;
+﻿using EnrollmentService.Data;
 using EnrollmentService.Interface;
 using EnrollmentService.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EnrollmentService.DAL
 {
@@ -15,6 +14,7 @@ namespace EnrollmentService.DAL
         {
             _context = context;
         }
+        //Create
         public void CreateEnrollment(Enrollment enrol)
         {
             if (enrol == null)
@@ -23,17 +23,17 @@ namespace EnrollmentService.DAL
             }
             _context.Enrollments.Add(enrol);
         }
-
+        //Get All
         public IEnumerable<Enrollment> GetAllEnrollments()
         {
             return _context.Enrollments.ToList();
         }
-
+        //Get By Id
         public Enrollment GetEnrollmentById(int id)
         {
             return _context.Enrollments.FirstOrDefault(p => p.EnrollmentId == id);
         }
-
+        //Save Changes
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

@@ -1,6 +1,8 @@
-﻿using EnrollmentService.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using EnrollmentService.Models;
 
 namespace EnrollmentService.Interface
 {
@@ -10,6 +12,5 @@ namespace EnrollmentService.Interface
         IEnumerable<Enrollment> GetAllEnrollments();
         Enrollment GetEnrollmentById(int id);
         void CreateEnrollment(Enrollment enrol);
-
     }
 }
