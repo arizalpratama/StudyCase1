@@ -1,9 +1,11 @@
 ﻿using EnrollmentService.Data;
 using EnrollmentService.Interface;
 using EnrollmentService.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EnrollmentService.DAL
 {
@@ -23,6 +25,25 @@ namespace EnrollmentService.DAL
             }
             _context.Enrollments.Add(enrol);
         }
+
+        //Delete
+        public async Task Delete(string id)
+        {
+            var result = await _context.Enrollments.Where
+                (e => e.EnrollmentId == Convert.ToInt32(id))
+                .SingleOrDefaultAsync<Enrollment>();
+            if (result == null) throw new Exception("Data tidak ditemukan !");
+            try
+            {
+                _context.Enrollments.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new Exception($"Error: {dbEx.Message}");
+            }
+        }
+
         //Get All
         public IEnumerable<Enrollment> GetAllEnrollments()
         {

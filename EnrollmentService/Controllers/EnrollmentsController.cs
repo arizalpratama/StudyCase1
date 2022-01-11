@@ -74,6 +74,21 @@ namespace EnrollmentService.Controllers
             new { Id = enrollmentDto.EnrollmentId }, enrollmentDto);
         }
 
+        //Delete
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _repository.Delete(id.ToString());
+                return Ok($"Data student {id} berhasil di delete");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }

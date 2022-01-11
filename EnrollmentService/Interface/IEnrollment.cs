@@ -12,5 +12,6 @@ namespace EnrollmentService.Interface
         IEnumerable<Enrollment> GetAllEnrollments();
         Enrollment GetEnrollmentById(int id);
         void CreateEnrollment(Enrollment enrol);
+        Task Delete(string id);
     }
 }
