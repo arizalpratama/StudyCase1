@@ -13,7 +13,6 @@ using System;
 
 namespace EnrollmentService.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EnrollmentsController : ControllerBase
@@ -31,18 +30,17 @@ namespace EnrollmentService.Controllers
         }
 
         //Get All
+        [Authorize(Roles = "admin, student")]
         [HttpGet]
         public async Task<IEnumerable<Enrollment>> GetAllEnrollments()
         {
-            //var results = await _enrollment.GetAll();
-            //return results;
             Console.WriteLine("--> Getting Enrollments .....");
             var enrollmentItem = await _enrollment.GetAllEnrollments();
             return enrollmentItem;
-            //return Ok(_mapper.Map<IEnumerable<EnrollmentReadDto>>(enrollmentItem));
         }
 
         //Get By Id
+        [Authorize(Roles = "admin, student")]
         [HttpGet("{id}", Name = "GetEnrollmentById")]
         public async Task<ActionResult<Enrollment>> GetEnrollmentById(string id)
         {
@@ -55,6 +53,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Create
+        [Authorize(Roles = "admin, student")]
         [HttpPost]
         public async Task<ActionResult<EnrollmentReadDto>> CreateEnrollment(EnrollmentCreateDto enrollmentCreateDto)
         {
@@ -63,7 +62,6 @@ namespace EnrollmentService.Controllers
             _enrollment.SaveChanges();
 
             var enrollmentReadDto = _mapper.Map<EnrollmentReadDto>(enrollmentModel);
-
 
             //send sync communication
             try
@@ -80,13 +78,14 @@ namespace EnrollmentService.Controllers
         }
 
         //Delete
+        [Authorize(Roles = "admin, student")]
         [HttpDelete("{id}", Name = "DeleteEnrollment")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _enrollment.DeleteEnrollment(id.ToString());
-                return Ok($"Data student {id} berhasil didelete");
+                return Ok($"Data enrollment {id} berhasil didelete");
             }
             catch (Exception ex)
             {
