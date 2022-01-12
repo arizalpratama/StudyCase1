@@ -24,7 +24,7 @@ namespace PaymentService.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<EnrollmentReadDto>> GetEnrollments()
         {
-            Console.WriteLine("-->Ambil Enrollments dari PaymentsService");
+            Console.WriteLine("-->Get Enrollments from PaymentsService");
             var enrollmentItems = _repository.GetAllEnrollments();
             return Ok(_mapper.Map<IEnumerable<EnrollmentReadDto>>(enrollmentItems));
         }
