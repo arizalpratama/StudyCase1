@@ -7,5 +7,5 @@ namespace EnrollmentService.Dtos
         public int EnrollmentId { get; set; }
         public string CourseId { get; set; }
         public string StudentId { get; set; }
-    }
+    } 
 }
