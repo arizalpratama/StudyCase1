@@ -21,7 +21,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using EnrollmentService.Interface;
 using EnrollmentService.DAL;
-using EnrollmentService.SyncDataServices.Http;
+//using EnrollmentService.SyncDataServices.Http;
+using EnrollmentService.SyncDataService.Http;
 
 namespace EnrollmentService
 {
