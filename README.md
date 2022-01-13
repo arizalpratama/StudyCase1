@@ -1,7 +1,7 @@
 # StudyCase1
 Microservices REST API
 
-Docker Push & Build:
+Docker Build and Push:
 - docker build -t arizalpratama01/enrollmentservice .
 - docker push arizalpratama01/enrollmentservice
 - docker build -t arizalpratama01/paymentservice .
