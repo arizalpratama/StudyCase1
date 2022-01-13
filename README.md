@@ -12,6 +12,7 @@ Kubernetes:
 - kubectl get services
 - kubectl get pods
 
+Kubernetes Apply:
 - Kubectl apply -f enrollments-depl.yaml
 - Kubectl apply -f payments-depl.yaml
 - Kubectl apply local-pvc.yaml
