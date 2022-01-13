@@ -13,12 +13,12 @@ Kubernetes:
 - kubectl get pods
 
 Kubernetes Apply:
-- Kubectl apply -f enrollments-depl.yaml
-- Kubectl apply -f payments-depl.yaml
-- Kubectl apply local-pvc.yaml
-- Kubectl apply -f mssql-plat-depl.yaml
-- Kubectl apply -f ingress-srv.yaml
-- Kubectl apply -f rabbitmq-depl.yaml
+- kubectl apply -f enrollments-depl.yaml
+- kubectl apply -f payments-depl.yaml
+- kubectl apply local-pvc.yaml
+- kubectl apply -f mssql-plat-depl.yaml
+- kubectl apply -f ingress-srv.yaml
+- kubectl apply -f rabbitmq-depl.yaml
 
 Kubernetes Delete:
 - kubectl delete deployment platforms-depl
