@@ -64,6 +64,16 @@ namespace EnrollmentService.DAL
             else
                 throw new Exception("Data tidak Ditemukan");
         }
+
+        //Update
+        public void UpdateEnrollment(int id, Enrollment obj)
+        {
+            var result = _db.Enrollments.FirstOrDefault(p => p.EnrollmentId == id);
+            result.StudentId = obj.StudentId;
+            result.CourseId = obj.CourseId;
+            _db.SaveChanges();
+        }
+
         //Save
         public bool SaveChanges()
         {

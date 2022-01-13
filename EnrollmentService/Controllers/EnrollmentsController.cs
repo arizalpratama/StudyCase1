@@ -76,6 +76,29 @@ namespace EnrollmentService.Controllers
             new { Id = enrollmentReadDto.EnrollmentId }, enrollmentReadDto);
         }
 
+        //Update
+        [Authorize(Roles = "admin, student")]
+        [HttpPut("{id}")]
+        public ActionResult<EnrollmentReadDto> UpdateEnrollment(int id, EnrollmentCreateDto enrollmentCreateDto)
+        {
+            try
+            {
+                var enrollmenteModel = _mapper.Map<Enrollment>(enrollmentCreateDto);
+                _enrollment.UpdateEnrollment(id, enrollmenteModel);
+                _enrollment.SaveChanges();
+
+                if (enrollmentCreateDto != null)
+                {
+                    return Ok(enrollmentCreateDto);
+                }
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         //Delete
         [Authorize(Roles = "admin, student")]
         [HttpDelete("{id}", Name = "DeleteEnrollment")]
