@@ -14,7 +14,9 @@ Kubernetes:
 
 - Kubectl apply -f enrollments-depl.yaml
 - Kubectl apply -f payments-depl.yaml
+- Kubectl apply local-pvc.yaml
 - Kubectl apply -f mssql-plat-depl.yaml
+- Kubectl apply -f ingress-srv.yaml
 - Kubectl apply -f rabbitmq-depl.yaml
 
 Kubernetes Delete:
@@ -22,3 +24,5 @@ Kubernetes Delete:
 - kubectl delete deployment commands-depl
 - kubectl delete deployment mssql-depl
 - kubectl delete deployment rabbitmq-depl
+- kubectl delete local-pvc
+- kubectl delete deployment ingress-srv
