@@ -23,7 +23,7 @@ Kubernetes Apply:
 Kubernetes Delete:
 - kubectl delete deployment platforms-depl
 - kubectl delete deployment commands-depl
-- kubectl delete deployment mssql-depl
-- kubectl delete deployment rabbitmq-depl
 - kubectl delete local-pvc
+- kubectl delete deployment mssql-depl
 - kubectl delete deployment ingress-srv
+- kubectl delete deployment rabbitmq-depl
