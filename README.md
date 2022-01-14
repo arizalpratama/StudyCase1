@@ -19,6 +19,7 @@ Kubernetes Apply:
 - kubectl apply -f mssql-plat-depl.yaml
 - kubectl apply -f ingress-srv.yaml
 - kubectl apply -f rabbitmq-depl.yaml
+- kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
 
 Kubernetes Delete:
 - kubectl delete deployment enrollments-depl
