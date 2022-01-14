@@ -10,12 +10,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{AE16F124-F23D-4050-9174-916CBFA53CF2}"
 	ProjectSection(SolutionItems) = preProject
 		enrollments-depl.yaml = enrollments-depl.yaml
-		enrollments-np-srv.yaml = enrollments-np-srv.yaml
 		ingress-srv.yaml = ingress-srv.yaml
 		local-pvc.yaml = local-pvc.yaml
 		mssql-plat-depl.yaml = mssql-plat-depl.yaml
 		payments-depl.yaml = payments-depl.yaml
-		rabbitmq-depl.yaml = rabbitmq-depl.yaml
 	EndProjectSection
 EndProject
 Global
