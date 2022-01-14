@@ -73,7 +73,7 @@ namespace EnrollmentService.Controllers
             }
 
             return CreatedAtRoute(nameof(GetEnrollmentById),
-            new { Id = enrollmentReadDto.EnrollmentId }, enrollmentReadDto);
+            new { Id = enrollmentReadDto.EnrollmentID }, enrollmentReadDto);
         }
 
         //Update

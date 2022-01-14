@@ -24,7 +24,7 @@ namespace EnrollmentService.DAL
                 _db.Enrollments.Add(enroll);
                 await _db.SaveChangesAsync();
                 var result = await _db.Enrollments.Include(e => e.Student)
-                .Include(e => e.Course).Where(s => s.EnrollmentId == enroll.EnrollmentId).SingleOrDefaultAsync<Enrollment>();
+                .Include(e => e.Course).Where(s => s.EnrollmentID == enroll.EnrollmentID).SingleOrDefaultAsync<Enrollment>();
                 return result;
             }
             catch (DbUpdateException dbEx)
@@ -58,7 +58,7 @@ namespace EnrollmentService.DAL
         public async Task<Enrollment> GetEnrollmentById(string id)
         {
             var result = await _db.Enrollments.Include(e => e.Student)
-                .Include(e => e.Course).Where(s => s.EnrollmentId == Convert.ToInt32(id)).SingleOrDefaultAsync<Enrollment>();
+                .Include(e => e.Course).Where(s => s.EnrollmentID == Convert.ToInt32(id)).SingleOrDefaultAsync<Enrollment>();
             if (result != null)
                 return result;
             else
@@ -68,9 +68,9 @@ namespace EnrollmentService.DAL
         //Update
         public void UpdateEnrollment(int id, Enrollment obj)
         {
-            var result = _db.Enrollments.FirstOrDefault(p => p.EnrollmentId == id);
-            result.StudentId = obj.StudentId;
-            result.CourseId = obj.CourseId;
+            var result = _db.Enrollments.FirstOrDefault(p => p.EnrollmentID == id);
+            result.StudentID = obj.StudentID;
+            result.CourseID = obj.CourseID;
             _db.SaveChanges();
         }
 
