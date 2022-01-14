@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-  - host: devbootcamp2.com
+  - host: devbootcamp-restapi.com
     http:
       paths:
       - pathType: Prefix
