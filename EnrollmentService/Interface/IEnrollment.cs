@@ -9,7 +9,8 @@ namespace EnrollmentService.Data
         bool SaveChanges();
         Task<IEnumerable<Enrollment>> GetAllEnrollments();
         Task<Enrollment> GetEnrollmentById(string id);
-        Task<Enrollment> CreateEnrollment(Enrollment enroll);
+        void CreateEnrollment(Enrollment enroll);
+        //Task<Enrollment> CreateEnrollment(Enrollment enroll);
         void UpdateEnrollment(int id, Enrollment obj);
         Task DeleteEnrollment(string id);
     }

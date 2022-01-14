@@ -9,7 +9,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PaymentService.Data;
-using PaymentService.EventProcessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,27 +18,38 @@ namespace PaymentService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Connection String
-            Console.WriteLine("--> Using Sql Server Db");
-            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
-                    Configuration.GetConnectionString("LocalConnection")));
 
-            //Services
-            services.AddControllers();
+            if (_env.IsProduction())
+            {
+                Console.WriteLine("--> Using Sql Server Db");
+                services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
+                    Configuration.GetConnectionString("ProductionConnection")
+                ));
+            }
+            else
+            {
+                Console.WriteLine("--> Using Local SQL Server Db");
+                services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
+                    Configuration.GetConnectionString("LocalConnection")
+                ));
+            }
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddSingleton<IEventProcessor, EventProcessor>();
+
             services.AddScoped<IPaymentRepo, PaymentRepo>();
 
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PaymentService", Version = "v1" });
@@ -57,11 +67,15 @@ namespace PaymentService
             }
 
             app.UseRouting();
+
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            PrepDb.PrepPopulation(app, env.IsProduction());
         }
     }
 }

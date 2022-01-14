@@ -28,15 +28,14 @@ namespace EnrollmentService.SyncDataService.Http
 
             var response = await _httpClient.PostAsync(_configuration["PaymentService"],
                 httpContent);
+
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("--> Sync POST to PaymentService was OK !");
+                Console.WriteLine("--> Sync POST to PaymentService Was OK !");
             }
             else
             {
-/*                Console.WriteLine(response);
-                Console.WriteLine(httpContent);*/
-                Console.WriteLine("--> Sync POST to PaymentService failed");
+                Console.WriteLine("--> Sync POST to PaymentService Failed");
             }
         }
     }

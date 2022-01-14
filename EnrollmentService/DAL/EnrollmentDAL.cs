@@ -16,22 +16,17 @@ namespace EnrollmentService.DAL
         {
             _db = db;
         }
+
         //Create
-        public async Task<Enrollment> CreateEnrollment(Enrollment enroll)
+        public void CreateEnrollment(Enrollment enrollment)
         {
-            try
+            if (enrollment == null)
             {
-                _db.Enrollments.Add(enroll);
-                await _db.SaveChangesAsync();
-                var result = await _db.Enrollments.Include(e => e.Student)
-                .Include(e => e.Course).Where(s => s.EnrollmentID == enroll.EnrollmentID).SingleOrDefaultAsync<Enrollment>();
-                return result;
+                throw new ArgumentNullException(nameof(enrollment));
             }
-            catch (DbUpdateException dbEx)
-            {
-                throw new Exception($"Error : {dbEx.Message}");
-            }
+            _db.Enrollments.Add(enrollment);
         }
+
         //Delete
         public async Task DeleteEnrollment(string id)
         {

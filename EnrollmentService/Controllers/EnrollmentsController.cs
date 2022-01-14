@@ -53,27 +53,36 @@ namespace EnrollmentService.Controllers
 
         //Create
         [Authorize(Roles = "admin, student")]
-        [HttpPost]
+        [HttpPost]   
         public async Task<ActionResult<EnrollmentReadDto>> CreateEnrollment(EnrollmentCreateDto enrollmentCreateDto)
         {
-            var enrollmentModel = _mapper.Map<Enrollment>(enrollmentCreateDto);
-            await _enrollment.CreateEnrollment(enrollmentModel);
-            _enrollment.SaveChanges();
-
-            var enrollmentReadDto = _mapper.Map<EnrollmentReadDto>(enrollmentModel);
-
-            //send sync communication
             try
             {
-                await _paymentDataClient.SendEnrollmentToPayment(enrollmentReadDto);
+                var enrollmentModel = _mapper.Map<Enrollment>(enrollmentCreateDto);
+                _enrollment.CreateEnrollment(enrollmentModel);
+                _enrollment.SaveChanges();
+
+                var enrollmentReadDto = _mapper.Map<EnrollmentReadDto>(enrollmentModel);
+
+                if (enrollmentReadDto != null)
+                {
+                    //send sync communication
+                    try
+                    {
+                        await _paymentDataClient.SendEnrollmentToPayment(enrollmentReadDto);
+                        return Ok(enrollmentReadDto);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"--> Could Not Send Synchronously: {ex.Message}");
+                    }
+                }
+                return NotFound();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"--> Could not send synchronously: {ex.Message}");
+                return BadRequest(ex.Message);
             }
-
-            return CreatedAtRoute(nameof(GetEnrollmentById),
-            new { Id = enrollmentReadDto.EnrollmentID }, enrollmentReadDto);
         }
 
         //Update
