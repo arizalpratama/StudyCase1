@@ -27,19 +27,33 @@ namespace EnrollmentService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Connection String
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+            //Connection String Local and Production
+            if (_env.IsProduction())
+            {
+                Console.WriteLine("--> Using Sql Server Db");
+                services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(
+                    Configuration.GetConnectionString("ProductionConnection")
+                ));
+            }
+            else
+            {
+                Console.WriteLine("--> Using Local SQL Server Db");
+                services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(
+                    Configuration.GetConnectionString("LocalConnection")
+                ));
+            }
 
             //Interface and DAL
             services.AddScoped<IStudent, StudentDAL>();
