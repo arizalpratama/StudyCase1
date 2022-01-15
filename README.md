@@ -2,10 +2,12 @@
 Microservices REST API
 
 Connection String:
-- Use 'LocalConnection' for development
-- Use 'ProductionConnection' for container
+- Use 'Local' for development
+- Use 'Database' for container
 
 Docker Build and Push:
+- docker build -t arizalpratama01/authserver .
+- - docker push arizalpratama01/authserver
 - docker build -t arizalpratama01/enrollmentservice .
 - docker push arizalpratama01/enrollmentservice
 - docker build -t arizalpratama01/paymentservice .
