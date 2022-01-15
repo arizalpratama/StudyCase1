@@ -21,20 +21,19 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using EnrollmentService.Interface;
 using EnrollmentService.DAL;
-using EnrollmentService.SyncDataService.Http;
 
-namespace EnrollmentService
+namespace AuthServer
 {
     public class Startup
     {
-        
+
         private readonly IWebHostEnvironment _env;
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             _env = env;
         }
-        public IConfiguration Configuration { get; } 
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -44,21 +43,9 @@ namespace EnrollmentService
             options.UseSqlServer(Configuration.GetConnectionString("Local")));
 
             //Interface and DAL
-            services.AddScoped<IStudent, StudentDAL>();
-            services.AddScoped<ICourse, CourseDAL>();
-            services.AddScoped<IEnrollment, EnrollmentDAL>();
+            services.AddScoped<IUser, UserDAL>();
 
-            //HttpClient
-            services.AddHttpClient<IPaymentDataClient, HttpPaymentDataClient>();
-
-            //Newtonsoft JSON and XML
-            services.AddControllers().AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .AddXmlSerializerFormatters();
-
-            //AutoMapper
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddControllers(); 
+            services.AddControllers();
 
             //Identity framework security
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
