@@ -29,24 +29,11 @@ namespace PaymentService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            if (_env.IsProduction())
-            {
-                Console.WriteLine("--> Using Sql Server Db");
-                services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
-                    Configuration.GetConnectionString("ProductionConnection")
-                ));
-            }
-            else
-            {
-                Console.WriteLine("--> Using Local SQL Server Db");
-                services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
-                    Configuration.GetConnectionString("LocalConnection")
-                ));
-            }
+            //Connection String
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             services.AddScoped<IPaymentRepo, PaymentRepo>();
 
             services.AddControllers();

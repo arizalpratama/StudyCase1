@@ -26,7 +26,7 @@ namespace EnrollmentService.SyncDataService.Http
                 JsonSerializer.Serialize(enroll),
                 Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync(_configuration["PaymentService"],
+            var response = await _httpClient.PostAsync(_configuration["LocalPaymentService"],
                 httpContent);
 
             if (response.IsSuccessStatusCode)
