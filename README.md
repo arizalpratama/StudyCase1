@@ -19,18 +19,19 @@ Kubernetes:
 - kubectl get pods
 
 Kubernetes Apply:
+- kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
+- kubectl apply -f ingress-srv.yaml
+- kubectl apply -f local-pvc.yaml
+- kubectl apply -f mssql-depl.yaml
 - kubectl apply -f authserver-depl.yaml
 - kubectl apply -f enrollment-depl.yaml
 - kubectl apply -f payment-depl.yaml
-- kubectl apply -f ingress-srv.yaml
-- kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
-- kubectl apply -f local-pvc.yaml
-- kubectl apply -f mssql-depl.yaml
+
 
 Kubernetes Delete:
+- kubectl delete deployment mssql-depl
 - kubectl delete deployment authserver-depl
 - kubectl delete deployment enrollment-depl
 - kubectl delete deployment payment-depl
 - kubectl delete deployment ingress-srv
 - kubectl delete deployment local-pvc
-- kubectl delete deployment mssql-depl
