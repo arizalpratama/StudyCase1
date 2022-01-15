@@ -64,7 +64,7 @@ namespace EnrollmentService.Controllers
         }
 
         //Get Role
-        /Authorize(Roles = "admin")]
+        Authorize(Roles = "admin")]
         [HttpGet("Role")]
         public ActionResult<IEnumerable<CreateRoleDto>> GetAllRole()
         {
