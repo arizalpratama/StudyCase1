@@ -40,11 +40,15 @@ namespace AuthServer
         {
             //Connection String
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Local")));
+            options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             //Interface and DAL
             services.AddScoped<IUser, UserDAL>();
 
+            //Newtonsoft JSON and XML
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddXmlSerializerFormatters();
             services.AddControllers();
 
             //Identity framework security

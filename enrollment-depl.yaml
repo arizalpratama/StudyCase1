@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payments-depl
+  name: enrollment-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: paymentservice
+      app: enrollmentservice
   template:
     metadata:
       labels:
-        app: paymentservice
+        app: enrollmentservice
     spec:
       containers:
-      - name: paymentservice
-        image: arizalpratama01/paymentservice:latest
+      - name: enrollmentservice
+        image: arizalpratama01/enrollmentservice:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: payments-clusterip-srv
+  name: enrollment-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: paymentservice
+    app: enrollmentservice
   ports:
-  - name: paymentservice
+  - name: enrollmentservice
     protocol: TCP
     port: 80
     targetPort: 80

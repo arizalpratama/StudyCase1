@@ -11,7 +11,7 @@ namespace PaymentService.Controllers
     public class PaymentController
     {
         [ApiController]
-        [Route("api/c/enrollments/{enrollmentId}/[controller]")]
+        [Route("api/p/enrollments/{enrollmentId}/[controller]")]
         public class PaymentsController : ControllerBase
         {
             private readonly IPaymentRepo _repository;

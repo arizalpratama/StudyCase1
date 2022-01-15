@@ -41,7 +41,7 @@ namespace EnrollmentService
         {
             //Connection String
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Local")));
+            options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             //Interface and DAL
             services.AddScoped<IStudent, StudentDAL>();

@@ -7,20 +7,48 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-  - host: devbootcamp-restapi.com
+  - host: restapi.com
     http:
       paths:
+      - pathType: Prefix
+        path: "/api/users"
+        backend:
+          service:
+            name: auth-clusterip-srv
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/api/courses"
+        backend:
+          service:
+            name: enrollment-clusterip-srv
+            port:
+              number: 80              
       - pathType: Prefix
         path: "/api/enrollments"
         backend:
           service:
-            name: enrollments-clusterip-srv
-            port: 
+            name: enrollment-clusterip-srv
+            port:
               number: 80
       - pathType: Prefix
-        path: "/api/p/enrollments"
+        path: "/api/students"
         backend:
           service:
-            name: payments-clusterip-srv
-            port: 
+            name: enrollment-clusterip-srv
+            port:
               number: 80
+      - pathType: Prefix
+        path: "/api/p/enrollment"
+        backend:
+          service:
+            name: payment-clusterip-srv
+            port:
+              number: 80            
+      - pathType: Prefix
+        path: "/api/payment"
+        backend:
+          service:
+            name: payment-clusterip-srv
+            port:
+              number: 80        
