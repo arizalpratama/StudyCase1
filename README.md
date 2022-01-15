@@ -25,7 +25,7 @@ Kubernetes Apply:
 - kubectl apply -f ingress-srv.yaml
 - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml
 - kubectl apply -f local-pvc.yaml
-- kubectl apply -f mssql-plat-depl.yaml
+- kubectl apply -f mssql-depl.yaml
 
 Kubernetes Delete:
 - kubectl delete deployment authserver-depl
