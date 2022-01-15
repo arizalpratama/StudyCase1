@@ -1,6 +1,10 @@
 # StudyCase1
 Microservices REST API
 
+Connection String:
+- Use 'LocalConnection' for development
+- Use 'ProductionConnection' for container
+
 Docker Build and Push:
 - docker build -t arizalpratama01/enrollmentservice .
 - docker push arizalpratama01/enrollmentservice
